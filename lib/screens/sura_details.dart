@@ -5,7 +5,7 @@ import 'package:qurany/model/sura_model.dart';
 class SuraDetailsScreen extends StatefulWidget {
   static const String routeName = 'suraDetails';
 
-  SuraDetailsScreen({super.key});
+  const SuraDetailsScreen({super.key});
 
   @override
   State<SuraDetailsScreen> createState() => _SuraDetailsScreenState();

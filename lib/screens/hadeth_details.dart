@@ -5,7 +5,7 @@ import 'package:qurany/model/hadeth_model.dart';
 class HadethDetailsScreen extends StatefulWidget {
   static String routeName = 'hadethDetails';
 
-  HadethDetailsScreen({super.key});
+  const HadethDetailsScreen({super.key});
 
   @override
   State<HadethDetailsScreen> createState() => _HadethDetailsScreenState();
@@ -29,7 +29,7 @@ class _HadethDetailsScreenState extends State<HadethDetailsScreen> {
           title: Text(args.name, style: Theme.of(context).textTheme.bodyLarge),
         ),
         body: Card(
-          margin: EdgeInsets.all(18),
+          margin: const EdgeInsets.all(18),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
           child: Expanded(
