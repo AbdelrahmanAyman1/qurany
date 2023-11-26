@@ -87,12 +87,19 @@ class AhadethTab extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Center(
                   child: InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(
-                            context, HadethDetailsScreen.routeName,
-                            arguments: HadethModel(hadethNum[index], index));
-                      },
-                      child: Text(hadethNum[index])),
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, HadethDetailsScreen.routeName,
+                          arguments: HadethModel(hadethNum[index], index));
+                    },
+                    child: Text(
+                      hadethNum[index],
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 );
               },
               separatorBuilder: (context, index) => Divider(
