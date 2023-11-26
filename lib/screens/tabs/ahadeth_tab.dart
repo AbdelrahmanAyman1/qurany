@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:qurany/model/hadeth_model.dart';
 import 'package:qurany/screens/Hadeth_details.dart';
 import 'package:qurany/widgets/divider.dart';
@@ -74,7 +75,7 @@ class AhadethTab extends StatelessWidget {
         ),
         const CustomDivider(),
         Text(
-          'الاحاديث',
+          AppLocalizations.of(context)!.ahadeth,
           style: Theme.of(context)
               .textTheme
               .bodyMedium!

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:qurany/screens/tabs/ahadeth_tab.dart';
 import 'package:qurany/screens/tabs/quran_tab.dart';
 import 'package:qurany/screens/tabs/radio_tab.dart';
@@ -29,7 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       Scaffold(
         appBar: AppBar(
-          title: Text('قرأني', style: Theme.of(context).textTheme.bodyLarge),
+          title: Text(AppLocalizations.of(context)!.appTitle,
+              style: Theme.of(context).textTheme.bodyLarge),
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: index,
