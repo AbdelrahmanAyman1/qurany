@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:qurany/model/sura_model.dart';
 import 'package:qurany/screens/sura_details.dart';
-import 'package:qurany/theme/my_theme_data.dart';
 import 'package:qurany/widgets/divider.dart';
 
 class QuranTab extends StatelessWidget {
@@ -129,11 +129,10 @@ class QuranTab extends StatelessWidget {
         const SizedBox(height: 20),
         const CustomDivider(),
         Text(
-          'اسم السورة',
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium!
-              .copyWith(fontWeight: FontWeight.w100),
+          AppLocalizations.of(context)!.suraNames,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              fontWeight: FontWeight.w100,
+              color: Theme.of(context).colorScheme.onSecondary),
         ),
         const CustomDivider(),
         Expanded(
@@ -143,7 +142,7 @@ class QuranTab extends StatelessWidget {
               thickness: 1,
               endIndent: 40,
               indent: 40,
-              color: MyThemeData.primaryColor,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
             itemCount: suraName.length,
             itemBuilder: (context, index) {
@@ -157,7 +156,7 @@ class QuranTab extends StatelessWidget {
                     suraName[index],
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.bold,
-                        ),
+                        color: Theme.of(context).colorScheme.onSecondary),
                   ),
                 ),
               );
