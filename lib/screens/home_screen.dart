@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:qurany/providers/my_provider.dart';
 import 'package:qurany/screens/tabs/ahadeth_tab.dart';
 import 'package:qurany/screens/tabs/quran_tab.dart';
 import 'package:qurany/screens/tabs/radio_tab.dart';
 import 'package:qurany/screens/tabs/sebha_tab.dart';
 import 'package:qurany/screens/tabs/settings_tab.dart';
-
-import '../theme/my_theme_data.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,9 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
     return Stack(children: [
       Image.asset(
-        'assets/images/backgraound.png',
+        provider.themeMode == ThemeMode.light
+            ? 'assets/images/backgraound.png'
+            : 'assets/images/backgraound_dark.png',
         width: double.infinity,
         fit: BoxFit.cover,
       ),
@@ -34,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: Theme.of(context).textTheme.bodyLarge),
         ),
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Theme.of(context).colorScheme.primary,
           currentIndex: index,
           onTap: (value) {
             setState(() {
@@ -43,30 +47,30 @@ class _HomeScreenState extends State<HomeScreen> {
           items: [
             BottomNavigationBarItem(
                 icon: const ImageIcon(AssetImage('assets/images/moshaf.png')),
-                label: 'قرأن',
-                backgroundColor: MyThemeData.primaryColor),
+                label: AppLocalizations.of(context)!.quran,
+                backgroundColor: Theme.of(context).colorScheme.primary),
             BottomNavigationBarItem(
                 icon: const ImageIcon(
                   AssetImage('assets/images/ahadeth.png'),
                 ),
-                label: 'احاديث',
-                backgroundColor: MyThemeData.primaryColor),
+                label: AppLocalizations.of(context)!.ahadeth,
+                backgroundColor: Theme.of(context).colorScheme.primary),
             BottomNavigationBarItem(
                 icon: const ImageIcon(
                   AssetImage('assets/images/sebha.png'),
                 ),
-                label: 'سبحه',
-                backgroundColor: MyThemeData.primaryColor),
+                label: AppLocalizations.of(context)!.sebha,
+                backgroundColor: Theme.of(context).colorScheme.primary),
             BottomNavigationBarItem(
                 icon: const ImageIcon(
                   AssetImage('assets/images/radio.png'),
                 ),
-                label: 'راديو',
-                backgroundColor: MyThemeData.primaryColor),
+                label: AppLocalizations.of(context)!.radio,
+                backgroundColor: Theme.of(context).colorScheme.primary),
             BottomNavigationBarItem(
                 icon: const Icon(Icons.settings),
-                label: 'الاعدادت',
-                backgroundColor: MyThemeData.primaryColor),
+                label: AppLocalizations.of(context)!.settings,
+                backgroundColor: Theme.of(context).colorScheme.primary),
           ],
         ),
         body: tabs[index],

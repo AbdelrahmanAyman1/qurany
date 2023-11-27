@@ -1,5 +1,15 @@
 {
   "appTitle": "Qurany",
   "suraNames": "Sura Names",
-  "ahadeth": "Ahadeth"
+  "ahadeth": "Ahadeth",
+  "language": "Language",
+  "arabic": "Arabic",
+  "english": "English",
+  "theming": "Theming",
+  "light": "Light",
+  "dark": "Dark",
+  "quran": "Quran",
+  "sebha": "Sebha",
+  "radio": "Radio",
+  "settings": "Settings"
 }

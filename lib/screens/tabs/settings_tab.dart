@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:qurany/theme/my_theme_data.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:qurany/providers/my_provider.dart';
+import 'package:qurany/widgets/language_bottom_sheet.dart';
+import 'package:qurany/widgets/theming_bottom_sheet.dart';
 
 class SettingsTab extends StatefulWidget {
   const SettingsTab({super.key});
@@ -11,38 +15,70 @@ class SettingsTab extends StatefulWidget {
 class _SettingsTabState extends State<SettingsTab> {
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(18),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Language'),
+          Text(
+            AppLocalizations.of(context)!.language,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Theme.of(context).colorScheme.onSecondary,
+                fontWeight: FontWeight.bold),
+          ),
           InkWell(
-            onTap: () => openLanguageBottomSheet(),
+            onTap: () {
+              openBottomSheet(const LanguageBottomSheet());
+              setState(() {});
+            },
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: MyThemeData.primaryColor)),
-              child: const Text('English'),
+                borderRadius: BorderRadius.circular(12),
+                border:
+                    Border.all(color: Theme.of(context).colorScheme.onSurface),
+              ),
+              child: Text(
+                provider.languageCode == 'en'
+                    ? AppLocalizations.of(context)!.english
+                    : AppLocalizations.of(context)!.arabic,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.onSecondary,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ),
           const SizedBox(
             height: 18,
           ),
-          const Text('Theming'),
+          Text(
+            AppLocalizations.of(context)!.theming,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Theme.of(context).colorScheme.onSecondary,
+                fontWeight: FontWeight.bold),
+          ),
           InkWell(
-            onTap: () => openThemingBottomSheet(),
+            onTap: () => openBottomSheet(const ThemingBottomSheet()),
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: MyThemeData.primaryColor)),
-              child: const Text('Light'),
+                borderRadius: BorderRadius.circular(12),
+                border:
+                    Border.all(color: Theme.of(context).colorScheme.onSurface),
+              ),
+              child: Text(
+                provider.themeMode == ThemeMode.light
+                    ? AppLocalizations.of(context)!.light
+                    : AppLocalizations.of(context)!.dark,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.onSecondary,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           )
         ],
@@ -50,32 +86,12 @@ class _SettingsTabState extends State<SettingsTab> {
     );
   }
 
-  openLanguageBottomSheet() {
+  openBottomSheet(Widget widget) {
     showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) {
-        return Container(
-          height: MediaQuery.of(context).size.height * .9,
-        );
-      },
-      shape: const OutlineInputBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(18),
-          topRight: Radius.circular(18),
-        ),
-      ),
-    );
-  }
-
-  openThemingBottomSheet() {
-    showModalBottomSheet(
-      isScrollControlled: true,
+      backgroundColor: Theme.of(context).colorScheme.background,
       context: context,
       builder: (context) {
-        return Container(
-          height: MediaQuery.of(context).size.height * .9,
-        );
+        return widget;
       },
       shape: const OutlineInputBorder(
         borderRadius: BorderRadius.only(
