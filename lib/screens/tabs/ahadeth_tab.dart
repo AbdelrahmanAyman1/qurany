@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:qurany/model/hadeth_model.dart';
 import 'package:qurany/screens/Hadeth_details.dart';
 import 'package:qurany/widgets/divider.dart';
-
-import '../../theme/my_theme_data.dart';
-
 class AhadethTab extends StatelessWidget {
   AhadethTab({super.key});
 
@@ -74,11 +72,10 @@ class AhadethTab extends StatelessWidget {
         ),
         const CustomDivider(),
         Text(
-          'الاحاديث',
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium!
-              .copyWith(fontWeight: FontWeight.w100),
+          AppLocalizations.of(context)!.ahadeth,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              fontWeight: FontWeight.w100,
+              color: Theme.of(context).colorScheme.onSecondary),
         ),
         const CustomDivider(),
         Expanded(
@@ -87,19 +84,25 @@ class AhadethTab extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Center(
                   child: InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(
-                            context, HadethDetailsScreen.routeName,
-                            arguments: HadethModel(hadethNum[index], index));
-                      },
-                      child: Text(hadethNum[index])),
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, HadethDetailsScreen.routeName,
+                          arguments: HadethModel(hadethNum[index], index));
+                    },
+                    child: Text(
+                      hadethNum[index],
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.onSecondary),
+                    ),
+                  ),
                 );
               },
               separatorBuilder: (context, index) => Divider(
-                    thickness: 1,
+                thickness: 1,
                     endIndent: 40,
                     indent: 40,
-                    color: MyThemeData.primaryColor,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
               itemCount: hadethNum.length),
         )
