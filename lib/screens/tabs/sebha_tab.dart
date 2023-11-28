@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany/providers/my_provider.dart';
 
-class SebhaTab extends StatelessWidget {
+class SebhaTab extends StatefulWidget {
   const SebhaTab({super.key});
 
   @override
+  State<SebhaTab> createState() => _SebhaTabState();
+}
+
+class _SebhaTabState extends State<SebhaTab> {
+  int counter = 0;
+  double angle = 0;
+  String text = '';
+
+  @override
   Widget build(BuildContext context) {
+    String text = _getText();
+
     var provider = Provider.of<MyProvider>(context);
     return Column(
       children: [
@@ -20,20 +32,24 @@ class SebhaTab extends StatelessWidget {
             Padding(
                 padding:
                     EdgeInsets.all(MediaQuery.of(context).size.height * .088),
-                child: Image.asset(provider.themeMode == ThemeMode.light
-                    ? 'assets/images/body_of_seb7a.png'
-                    : 'assets/images/dark_body_of_seb7a.png'))
+                child: Transform.rotate(
+                  angle: angle,
+                  child: Image.asset(provider.themeMode == ThemeMode.light
+                      ? 'assets/images/body_of_seb7a.png'
+                      : 'assets/images/dark_body_of_seb7a.png'),
+                ))
           ],
         ),
         Center(
           child: Text(
-            'عدد التسبيحات',
+            AppLocalizations.of(context)!.tasbehNum,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium!
                 .copyWith(color: Theme.of(context).colorScheme.onBackground),
           ),
         ),
+        const SizedBox(height: 20),
         Container(
           height: MediaQuery.of(context).size.height * .10,
           width: MediaQuery.of(context).size.width * .3,
@@ -41,20 +57,23 @@ class SebhaTab extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
               borderRadius: BorderRadius.circular(20)),
           child: Center(
-            child: Text('0',
+            child: Text('$counter',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: Theme.of(context).colorScheme.onBackground)),
           ),
         ),
         const SizedBox(height: 50),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            _tasbeh();
+            setState(() {});
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.onSurface,
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           ),
           child: Text(
-            'سبحان الله',
+            text,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Theme.of(context).colorScheme.onError,
                 ),
@@ -62,5 +81,27 @@ class SebhaTab extends StatelessWidget {
         )
       ],
     );
+  }
+
+  String _getText() {
+    if (counter <= 33) {
+      return AppLocalizations.of(context)!.sobhanAllah;
+    } else if (counter <= 66) {
+      return AppLocalizations.of(context)!.alhamudLlah;
+    } else if (counter <= 99) {
+      return AppLocalizations.of(context)!.allahAkbar;
+    } else {
+      counter = 0;
+      return AppLocalizations.of(context)!.sobhanAllah;
+    }
+  }
+
+  void _tasbeh() {
+    setState(() {
+      counter++;
+      angle += 3;
+      // Use the _getText method to update the text variable based on the counter.
+      text = _getText();
+    });
   }
 }
